@@ -35,7 +35,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Below for apps
     'shop.apps.ShopConfig',
+
+
+    # django  framework
+    'rest_framework'
 
 ]
 
