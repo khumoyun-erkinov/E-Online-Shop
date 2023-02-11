@@ -40,11 +40,31 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 
     # django  framework
-    'rest_framework'
+    'rest_framework',
+    'drf_yasg',
 
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Auth Token eg [Bear] (JWT)': {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header",
+
+        }
+    }
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENICATION_CLASSES': {
+        'authentication.backends.JWTAuthentication',
+
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -151,3 +171,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = 'django.core.mail.backend.console.EmailBackend'
 
+# Publishable key
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51MaD0XHpQWq1OljhFAj8EO2oZe7UdVTGB1v8jFeFmxtE8AzD1151WDgJYNEWTv1CjyyunFRPz0K8Dq2eKHsig43y00aaKw8IC2'
+# Secret key
+STRIPE_SECRET_KEY = 'sk_test_51MaD0XHpQWq1OljhnFuH4dzUjHNKa2alFSX5CZ8T0jAkBFIi7Ps7jFnGgkJ3tBtE15iUdUFoBR1G6vS7VqHRUB7U00lElSlDhJ'
+# Activate date
+STRIPE_API_VERSION = '2022-08-01'
+
+STRIPE_WEBHOOK_SECRET = 'whsec_9c669fb80c9b74221cf0101fbe589e091812746cbc08387d3359efaa1b43d809'
