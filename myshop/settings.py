@@ -60,7 +60,7 @@ SWAGGER_SETTINGS = {
 }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENICATION_CLASSES': {
+    'DEFAULT_AUTHENTICATION_CLASSES': {
         'authentication.backends.JWTAuthentication',
 
     }
