@@ -38,9 +38,9 @@ h1 {
     margin-bottom: 20px;
 }
 
-/*.num {*/
-/*    text-align: right;*/
-/*}*/
+.num {
+    text-align: right;
+}
 
 .paid, .pending {
     color: #1bae37;

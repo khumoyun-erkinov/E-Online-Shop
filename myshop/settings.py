@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -159,6 +162,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR.joinpath('static')]
 
+
+STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
+
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -179,3 +185,7 @@ STRIPE_SECRET_KEY = 'sk_test_51MaD0XHpQWq1OljhnFuH4dzUjHNKa2alFSX5CZ8T0jAkBFIi7P
 STRIPE_API_VERSION = '2022-08-01'
 
 STRIPE_WEBHOOK_SECRET = 'whsec_9c669fb80c9b74221cf0101fbe589e091812746cbc08387d3359efaa1b43d809'
+
+
+
+
