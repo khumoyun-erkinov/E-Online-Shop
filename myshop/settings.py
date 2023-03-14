@@ -12,8 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
-
-
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -48,25 +47,77 @@ INSTALLED_APPS = [
     # django  framework
     'rest_framework',
     'drf_yasg',
+    'rest_framework_simplejwt',
 
 ]
 
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Auth Token eg [Bear] (JWT)': {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-
-        }
-    }
-}
+# SWAGGER_SETTINGS = {
+#     'SECURITY_DEFINITIONS': {
+#         'Auth Token eg [Bear] (JWT)': {
+#             "type": "apiKey",
+#             "name": "Authorization",
+#             "in": "header",
+#
+#         }
+#     }
+# }
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': {
-        'authentication.backends.JWTAuthentication',
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICAtION_CLASSES': [
+        'rest_framework.simplejwt.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
 
-    }
+    ]
+
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": False,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "UPDATE_LAST_LOGIN": False,
+
+    "ALGORITHM": "HS256",
+    "SIGNING_KEY": SECRET_KEY,
+    "VERIFYING_KEY": "",
+    "AUDIENCE": None,
+    "ISSUER": None,
+    "JSON_ENCODER": None,
+    "JWK_URL": None,
+    "LEEWAY": 0,
+
+    "AUTH_HEADER_TYPES": ("BEARER",),
+    "AUTH_HEADER_NAME": "HTTP_AUTHORIZATION",
+    "USER_ID_FIELD": "id",
+    "USER_ID_CLAIM": "user_id",
+    "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
+
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+    "TOKEN_USER_CLASS": "rest_framework_simplejwt.models.TokenUser",
+
+    "JTI_CLAIM": "jti",
+
+    "SLIDING_TOKEN_REFRESH_EXP_CLAIM": "refresh_exp",
+    "SLIDING_TOKEN_LIFETIME": timedelta(minutes=60),
+    "SLIDING_TOKEN_REFRESH_LIFETIME": timedelta(days=1),
+
+    "TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainPairSerializer",
+    "TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSerializer",
+    "TOKEN_VERIFY_SERIALIZER": "rest_framework_simplejwt.serializers.TokenVerifySerializer",
+    "TOKEN_BLACKLIST_SERIALIZER": "rest_framework_simplejwt.serializers.TokenBlacklistSerializer",
+    "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
+    "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
+
 }
 
 MIDDLEWARE = [
@@ -162,7 +213,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR.joinpath('static')]
 
-
 STATIC_ROOT = os.path.join(BASE_DIR, '/static/')
 
 MEDIA_URL = 'media/'
@@ -178,14 +228,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backend.console.EmailBackend'
 
 # Publishable key
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51MaD0XHpQWq1OljhFAj8EO2oZe7UdVTGB1v8jFeFmxtE8AzD1151WDgJYNEWTv1CjyyunFRPz0K8Dq2eKHsig43y00aaKw8IC2'
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51Ml3KMCjNalaxhnnb9X6M2UtisTsle9PBL2uu2Z4YURS1zqJSgrQN3xaLZGzxcpZ5tFIb1nYnW7ERXqManYSy82z00DZL747Xw'
 # Secret key
-STRIPE_SECRET_KEY = 'sk_test_51MaD0XHpQWq1OljhnFuH4dzUjHNKa2alFSX5CZ8T0jAkBFIi7Ps7jFnGgkJ3tBtE15iUdUFoBR1G6vS7VqHRUB7U00lElSlDhJ'
+STRIPE_SECRET_KEY = 'sk_test_51Ml3KMCjNalaxhnnLEJPjLvn0RFzwxZjLvlhXRvUbiWHCychkidgNs3wmM0H3EJAZg1I07KBqJGTBXE6EisTiPpe00jvxh08xv'
 # Activate date
 STRIPE_API_VERSION = '2022-08-01'
 
-STRIPE_WEBHOOK_SECRET = 'whsec_9c669fb80c9b74221cf0101fbe589e091812746cbc08387d3359efaa1b43d809'
-
-
-
-
+STRIPE_WEBHOOK_SECRET = 'whsec_12d08e7e2d7f54239b83606191ea4c6a99620218f455c76d34ea0ec642806402'

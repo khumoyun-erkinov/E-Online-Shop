@@ -17,18 +17,16 @@ def stripe_webhook(request):
     event = None
 
     try:
-
         event = stripe.Webhook.construct_event(
             payload,
             sig_header,
-            settings.STRIPE_WEBHOOK_SECRET
-        )
+            settings.STRIPE_WEBHOOK_SECRET)
     except ValueError as e:
         # Invalid payload
         return HttpResponse(status=400)
     except stripe.error.SignatureVerificationError as e:
-        return HttpResponse(status=400)
         # Invalid signature
+        return HttpResponse(status=400)
 
     if event.type == 'checkout.session.completed':
         session = event.data.object
@@ -42,6 +40,7 @@ def stripe_webhook(request):
             # store Stripe payments ID
             order.stripe_id = session.payment_intent
             order.save()
+            # payment_completed.delay()
 
             # launch asynchronous task
 
